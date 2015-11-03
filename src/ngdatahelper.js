@@ -2,17 +2,19 @@ angular.module('ngDataHelper', [])
 
 .factory('Data', ['$http', function($http) {
 	var opts = {
-		headers : {}, 
 		log: false,
 		apiBase : '',
-		callOpts: {
+		callOpts: { 
 			test: 1234
 		}
 	}
 	var obj = {};
 
-	obj.setOptions = function(opts) {
-
+	obj.setOptions = function(_opts) {
+		/*
+			
+		*/
+		Object.assign(opts, _opts);
 	}
 
 	obj.get = function (q, _opts, isRemote) {
