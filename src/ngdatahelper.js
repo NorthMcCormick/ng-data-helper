@@ -2,7 +2,7 @@ angular.module('ngDataHelper', [])
 
 .factory('Data', ['$http', function($http) {
 	var opts = {
-		headers : {},
+		headers : {}, 
 		log: false,
 		apiBase : '',
 		callOpts: {
@@ -20,7 +20,7 @@ angular.module('ngDataHelper', [])
 
 		Object.assign(_opts, opts.callOpts);
 
-		if(log) console.log("GET", opts.apiBase + q, _opts);
+		if(opts.log) console.log("GET", opts.apiBase + q, _opts);
 
 		if(isRemote) {
 			var url = opts.apiBase + q;
@@ -53,6 +53,8 @@ angular.module('ngDataHelper', [])
 		_opts = typeof _opts !== 'undefined' ? _opts : {};
 
 		Object.assign(_opts, opts.callOpts);
+
+		if(opts.log) console.log("POST", opts.apiBase + q, _opts);
 
 		if(isRemote) {
 			var url = _opts.apiBase + q;
