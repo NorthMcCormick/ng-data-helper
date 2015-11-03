@@ -3,11 +3,12 @@ angular.module('ngDataHelper', [])
 .factory('Data', ['$http', function($http) {
 	var opts = {
 		log: false,
-		apiBase : '',
+		api : '',
 		callOpts: { 
 			test: 1234
 		}
 	}
+	
 	var obj = {};
 
 	obj.setOptions = function(_opts) {
@@ -22,11 +23,10 @@ angular.module('ngDataHelper', [])
 
 		Object.assign(_opts, opts.callOpts);
 
-		if(opts.log) console.log("GET", opts.apiBase + q, _opts);
-		console.log("GET _OPTS", _opts);
+		if(opts.log) console.log("GET", opts.api, q, _opts);
 
 		if(isRemote) {
-			var url = opts.apiBase + q;
+			var url = opts.api + q;
 		}else{
 			var url = q;
 		}
@@ -57,15 +57,15 @@ angular.module('ngDataHelper', [])
 
 		Object.assign(_opts, opts.callOpts);
 
-		if(opts.log) console.log("POST", opts.apiBase + q, _opts);
+		if(opts.log) console.log("POST", opts.api, q, _opts);
 
 		if(isRemote) {
-			var url = _opts.apiBase + q;
+			var url = _opts.api + q;
 		}else{
 			var url = q;
 		}
 
-		return $http.post(url, object, opts).then(function (results) {
+		return $http.post(url, object, _opts).then(function (results) {
 			var dpackage = {
 				data: results.data,
 				headers: results.headers,
@@ -91,13 +91,15 @@ angular.module('ngDataHelper', [])
 
 		Object.assign(_opts, opts.callOpts);
 
+		if(opts.log) console.log("PUT", opts.api, q, _opts);
+
 		if(isRemote) {
-			var url = _opts.apiBase + q;
+			var url = _opts.api + q;
 		}else{
 			var url = q;
 		}
 
-		return $http.put(url, object).then(function (results) {
+		return $http.put(url, object, _opts).then(function (results) {
 			var dpackage = {
 				data: results.data,
 				headers: results.headers,
@@ -123,13 +125,15 @@ angular.module('ngDataHelper', [])
 
 		Object.assign(_opts, opts.callOpts);
 
+		if(opts.log) console.log("DELETE", opts.api, q, _opts);
+
 		if(isRemote) {
-			var url = _opts.apiBase + q;
+			var url = _opts.api + q;
 		}else{
 			var url = q;
 		}
 
-		return $http.delete(url, opts).then(function (results) {
+		return $http.delete(url, _opts).then(function (results) {
 			var dpackage = {
 				data: results.data,
 				headers: results.headers,
