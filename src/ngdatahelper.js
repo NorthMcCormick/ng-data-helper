@@ -1,173 +1,149 @@
 angular.module('ngDataHelper', [])
 
-.factory('Data', function($http){
-  var obj = {};
+.factory('Data', ['$http', function($http) {
+	var opts = {
+		headers : {},
+		log: false,
+		apiBase : '',
+		callOpts: {
+			test: 1234
+		}
+	}
+	var obj = {};
 
-  //var apiBase = appSettings.apiUrl;
+	obj.setOptions = function(opts) {
 
-  //var serviceBase = apiBase + 'index.php/';
- // var serviceBase = apiBase;
-  //var serviceBase = 'http://api2.redfitapp.com/index.php/';
+	}
 
-  	obj.apiUrl = '';//apiBase;
+	obj.get = function (q, _opts, isRemote) {
+		_opts = typeof _opts !== 'undefined' ? _opts : {};
 
-    obj.getOutside = function (q, opts) {
-        opts = typeof opts !== 'undefined' ? opts : {};
-        return $http.get(q, opts).then(function (results) {
-            var dpackage = {
-              data: results.data,
-              headers: results.headers,
-              status: results.status,
-              config: results.config
-            }
-            return dpackage;
-        }, function(results){
+		Object.assign(_opts, opts.callOpts);
 
-          var dpackage = {
-            data: results.data,
-            headers: results.headers,
-            status: results.status,
-            config: results.config
-          }
-          return dpackage;
-          
-        });
-    };
+		if(log) console.log("GET", opts.apiBase + q, _opts);
 
-    obj.get = function (q, opts) {
-        opts = typeof opts !== 'undefined' ? opts : {};
-        console.log("GET", serviceBase + q);
-        return $http.get(serviceBase + q, opts).then(function (results) {
-            var dpackage = {
-              data: results.data,
-              headers: results.headers,
-              status: results.status,
-              config: results.config
-            }
-            return dpackage;
-        }, function(results){
+		if(isRemote) {
+			var url = opts.apiBase + q;
+		}else{
+			var url = q;
+		}
 
-          var dpackage = {
-            data: results.data,
-            headers: results.headers,
-            status: results.status,
-            config: results.config
-          }
-          return dpackage;
-          
-        });
-    };
+		return $http.get(url, _opts).then(function (results) {
+			var dpackage = {
+				data: results.data,
+				headers: results.headers,
+				status: results.status,
+				config: results.config
+			}
 
-    obj.post = function (q, object) {
-        return $http.post(serviceBase + q, object).then(function (results) {
-            var dpackage = {
-              data: results.data,
-              headers: results.headers,
-              status: results.status,
-              config: results.config
-            }
-            return dpackage;
-        }, function(results){
+			return dpackage;
+		}, function(results){
+			var dpackage = {
+				data: results.data,
+				headers: results.headers,
+				status: results.status,
+				config: results.config
+			}
 
-          var dpackage = {
-            data: results.data,
-            headers: results.headers,
-            status: results.status,
-            config: results.config
-          }
-          return dpackage;
+			return dpackage;
+		});
+	};
 
-        });
-    };
+	obj.post = function (q, object, opts, isRemote) {
+		_opts = typeof _opts !== 'undefined' ? _opts : {};
 
-    obj.put = function (q, object) {
-        return $http.put(serviceBase + q, object).then(function (results) {
-            var dpackage = {
-              data: results.data,
-              headers: results.headers,
-              status: results.status,
-              config: results.config
-            }
-            return dpackage;
-        }, function(results){
+		Object.assign(_opts, opts.callOpts);
 
-          var dpackage = {
-            data: results.data,
-            headers: results.headers,
-            status: results.status,
-            config: results.config
-          }
-          return dpackage;
-          
-        });
-    };
+		if(isRemote) {
+			var url = _opts.apiBase + q;
+		}else{
+			var url = q;
+		}
 
-    obj.putOutside = function (q, object) {
-        return $http.put(q, object).then(function (results) {
-            var dpackage = {
-              data: results.data,
-              headers: results.headers,
-              status: results.status,
-              config: results.config
-            }
-            return dpackage;
-        }, function(results){
+		return $http.post(url, object, opts).then(function (results) {
+			var dpackage = {
+				data: results.data,
+				headers: results.headers,
+				status: results.status,
+				config: results.config
+			}
 
-          var dpackage = {
-            data: results.data,
-            headers: results.headers,
-            status: results.status,
-            config: results.config
-          }
-          return dpackage;
-          
-        });
-    };
+			return dpackage;
+		}, function(results){
+			var dpackage = {
+				data: results.data,
+				headers: results.headers,
+				status: results.status,
+				config: results.config
+			}
 
-    obj.delete = function (q) {
-        return $http.delete(serviceBase + q).then(function (results) {
-            var dpackage = {
-              data: results.data,
-              headers: results.headers,
-              status: results.status,
-              config: results.config
-            }
-            return dpackage;
-        }, function(results){
+			return dpackage;
+		});
+	};
 
-          var dpackage = {
-            data: results.data,
-            headers: results.headers,
-            status: results.status,
-            config: results.config
-          }
-          return dpackage;
-          
-        });
-    };
+	obj.put = function (q, object, opts, isRemote) {
+		_opts = typeof _opts !== 'undefined' ? _opts : {};
 
-    obj.deleteOutside = function (q) {
+		Object.assign(_opts, opts.callOpts);
 
-        return $http.delete(q).then(function (results) {
-            var dpackage = {
-              data: results.data,
-              headers: results.headers,
-              status: results.status,
-              config: results.config
-            }
-            return dpackage;
-        }, function(results){
+		if(isRemote) {
+			var url = _opts.apiBase + q;
+		}else{
+			var url = q;
+		}
 
-          var dpackage = {
-            data: results.data,
-            headers: results.headers,
-            status: results.status,
-            config: results.config
-          }
-          return dpackage;
-          
-        });
-    };
+		return $http.put(url, object).then(function (results) {
+			var dpackage = {
+				data: results.data,
+				headers: results.headers,
+				status: results.status,
+				config: results.config
+			}
 
-    return obj;
-})
+			return dpackage;
+		}, function(results){
+			var dpackage = {
+				data: results.data,
+				headers: results.headers,
+				status: results.status,
+				config: results.config
+			}
+
+			return dpackage;
+		});
+	};
+
+	obj.delete = function (q, opts, isRemote) {
+		_opts = typeof _opts !== 'undefined' ? _opts : {};
+
+		Object.assign(_opts, opts.callOpts);
+
+		if(isRemote) {
+			var url = _opts.apiBase + q;
+		}else{
+			var url = q;
+		}
+
+		return $http.delete(url, opts).then(function (results) {
+			var dpackage = {
+				data: results.data,
+				headers: results.headers,
+				status: results.status,
+				config: results.config
+			}
+
+			return dpackage;
+		}, function(results){
+			var dpackage = {
+				data: results.data,
+				headers: results.headers,
+				status: results.status,
+				config: results.config
+			}
+
+			return dpackage;
+		});
+	};
+
+	return obj;
+}]);
