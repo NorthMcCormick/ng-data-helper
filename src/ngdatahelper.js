@@ -21,6 +21,7 @@ angular.module('ngDataHelper', [])
 		Object.assign(_opts, opts.callOpts);
 
 		if(opts.log) console.log("GET", opts.apiBase + q, _opts);
+		console.log("GET _OPTS", _opts);
 
 		if(isRemote) {
 			var url = opts.apiBase + q;
