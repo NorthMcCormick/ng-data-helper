@@ -1,0 +1,29 @@
+{
+  "name": "ng-data-helper",
+  "homepage": "https://github.com/NorthMcCormick/ng-data-helper",
+  "authors": [
+    "North McCormick <northmccormick@icloud.com>"
+  ],
+  "description": "Angularjs $http promise wrapper",
+  "main": "src/ngdatahelper.js",
+  "moduleType": [],
+  "keywords": [
+    "angularjs",
+    "$http",
+    "http",
+    "data",
+    "promise",
+    "wrapper",
+    "rest",
+    "restful",
+    "then"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
