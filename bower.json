@@ -6,7 +6,7 @@
     "North McCormick <northmccormick@icloud.com>"
   ],
   "description": "Angularjs $http promise wrapper",
-  "main": "src/ngdatahelper.js",
+  "main": "dist/ngdatahelper.js",
   "moduleType": [],
   "keywords": [
     "angularjs",
